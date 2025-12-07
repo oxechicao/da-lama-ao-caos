@@ -1,0 +1,14 @@
+{
+  "name": "manguetown",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tailwindcss -i ./sass/input.css -o ./static/output.css --minify",
+    "watch": "tailwindcss -i ./sass/input.css -o ./static/output.css --watch",
+    "server": "zola serve"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.17"
+  }
+}
