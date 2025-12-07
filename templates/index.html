@@ -1,7 +1,43 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<header class="bg-blue-950 text-stone-200">
+    <div class="max-w-6xl mx-auto w-full px-6 py-8">
+        <div class="flex flex-col gap-16 items-center">
+            <!-- Row 1: Heading -->
+            <div class="w-full">
+                <h1
+                    class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center text-pink-700"
+                >
+                    Da lama ao Caos
+                </h1>
+            </div>
 
-{% block content %}
-<h1 class="title">
-  This is my blog made with Zola.
-</h1>
+            <!-- Row 2: two equal columns (50% each on md+), larger gap -->
+            <div class="w-full">
+                <div
+                    class="flex flex-col md:flex-row items-start md:items-stretch justify-center gap-8 md:gap-12 w-full"
+                >
+                    <!-- Left column: takes half width on md+, content right-aligned -->
+                    <div class="w-full md:w-1/2 flex md:justify-end">
+                        <pre
+                            class="inline-block bg-indigo-950 p-4 rounded-lg leading-relaxed whitespace-pre-wrap shadow-sm text-left max-w-full md:max-w-lg"
+                        >
+Que eu me organizando posso desorganizar
+Que eu desorganizando posso me organizar
+
+                        <span class="text-yellow-500">Chico Science & Nação Zumbi, 1994</span></pre>
+                    </div>
+
+                    <!-- Right column: takes half width on md+, content left-aligned -->
+                    <div class="w-full md:w-1/2 flex md:justify-start">
+                        <p class="text-left text-base md:text-lg self-center">
+                            Anotações de aprendizado e compartilhada sobre Rust
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<h1 class="title">This is my blog made with Zola.</h1>
 {% endblock content %}
