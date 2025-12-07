@@ -1,1 +1,27 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+* {
+  font-family: "Open-Dyslexic", sans-serif;
+}
+
+html,
+body {
+  @apply h-full text-stone-300;
+}
+
+h1 {
+  @apply text-4xl font-extrabold text-center text-pink-600 my-8;
+}
+
+.subtitle {
+  @apply text-lg text-center text-stone-400 mb-4;
+}
+
+h2 {
+  @apply text-2xl font-bold text-sky-600 mb-6;
+}
+
+article {
+  @apply prose prose-lg prose-stone prose-invert mx-auto;
+}

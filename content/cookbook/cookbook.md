@@ -1,91 +1,15 @@
 +++
-title = "Cookbook: Exemplos de códigos em rust"
+title = "Criando um comando para ler o nome da branch"
 date = 2025-12-07
 path = "cookbook/criando-comando-para-ler-nome-da-branch-atual"
+tags = ["git", "command", "mock"]
+draft = true
 +++
 
-> ---
-> # Índice
+## Contexto
 
-<!-- - [COOKBOOK: Aprendendo com testes](#cookbook-aprendendo-com-testes)
-  - [Criando um comando para ler o nome da branch](#criando-um-comando-para-ler-o-nome-da-branch)
-    - [Contexto](#contexto)
-    - [Sobre a implementação](#sobre-a-implementação)
-    - [TDD: Primeira iteração - Iniciando nossa função de teste](#tdd-primeira-iteração---iniciando-nossa-função-de-teste)
-      - [`#[cfg(test)]` e `mod tests`](#cfgtest-e-mod-tests)
-      - [`#[tests]` e a função de teste](#tests-e-a-função-de-teste)
-      - [Finalizando a primeira iteração](#finalizando-a-primeira-iteração)
-    - [TDD: Segunda iteração - Inicializando o mock](#tdd-segunda-iteração---inicializando-o-mock)
-      - [Iniciando Mock](#iniciando-mock)
-      - [Criando a inicialização do mock FakeRunner](#criando-a-inicialização-do-mock-fakerunner)
-      - [Implementando método NEW do mock FakeRunner](#implementando-método-new-do-mock-fakerunner)
-      - [Atualizando struct FakeRunner](#atualizando-struct-fakerunner)
-      - [Implementando a estrutura RunResult](#implementando-a-estrutura-runresult)
-      - [Finalizando a iteração](#finalizando-a-iteração)
-    - [TDD: Segunda iteração - GitRunner](#tdd-segunda-iteração---gitrunner)
-      - [O Teste](#o-teste)
-      - [Vamos entender as mudanças:](#vamos-entender-as-mudanças)
-      - [Implementando pub trait GitRunner](#implementando-pub-trait-gitrunner)
-      - [Finalizando a iteração](#finalizando-a-iteração-1)
-      - [Código resultante deta iteração](#código-resultante-deta-iteração)
-    - [TDD: Terceira iteração - Git, the real implementation](#tdd-terceira-iteração---git-the-real-implementation)
-      - [Explicando o código:](#explicando-o-código)
-      - [Implementando RealGitRunner e impl Git](#implementando-realgitrunner-e-impl-git)
-      - [Finalizando a iteração](#finalizando-a-iteração-2)
-      - [Código resultante deta iteração](#código-resultante-deta-iteração-1)
-    - [TDD: Quarta iteração - GitError, melhorando as mensagens de erros](#tdd-quarta-iteração---giterror-melhorando-as-mensagens-de-erros)
-      - [Código resultante deta iteração](#código-resultante-deta-iteração-2)
-    - [Resultado final](#resultado-final) -->
-
----
----
-
-
-# COOKBOOK: Aprendendo com testes
-
-Objetivo deste documento é aprender RUST através de testes: unitários, integração etc.
-
-Por mais que testes automatizados seja um tópico relativamente avançado, adquirir uma cultura de testes é essencial para qualquer pessoa desenvolvedora.  
-Então, porque não começar com os testes? ~~Porque é coisa de doido~~
-
-Uma vez ouvi um colega dizer para mim: 
-
-> "Eu dificilmente subo minha aplicação. Geralmente é a ultima etapa, só para ter certeza. Eu sempre utilizo os testes unitários para executar meu código"
-
-Isso mudou mais uma vez meu estilo de programação. Apesar de muitos considerar que testes atrasam uma entrega. Eu digo que testes postergam problemas. O prazo de entrega pode aumentar algund dias, enquanto um prazo de debug tendem a demorar semanas.
-
-Utilizar TDD (Test Driven Development, Desenvolvimento Orientado a Teste) exige prática, e no começo vai parecer ser bem sem sentido, mas continue firme na prática, isso mudará seu jeito de pensar em como entregar o mínimo.  
-Resumidamente, no TDD primeiro você escreve o teste, para aquilo que não existe, isso deve falhar, do contrário, ou o teste está errado, ou a implementação já existe e você não sabia :D.  
-A implementação segue um ciclo: Escreve o teste, Faz o teste passar, Refatore o código.
-
-```mermaid
----
-title: Ciclo TDD
----
-stateDiagram-v2
-  state "Escreva o Teste" as a
-  state "Escreva o código que passe no teste" as b
-  state "Refatore o código" as c
-  [*] --> a: Primeiro passo
-  a --> b: falhou
-  b --> c: passou
-  c --> a: próximo
-```
-
-Os exemplos abaixo foram surgindo de acordo com a minha necessidade e meu aprendizado. Não estão necessariamente em alguma ordem.
-
-> **NOTA:**
-> Nem tudo deve ser testado, nem todos os testes abaixo devem ser realmente implementados.
-> O objetivo deste documento é o aprendizado,
-
-## Criando um comando para ler o nome da branch
-
-> #git #command #mock
-
-### Contexto
-
-COMO uma pessoa desenvolvedora
-EU QUERO executar comandos git
+COMO uma pessoa desenvolvedora  
+EU QUERO executar comandos git  
 PARA que eu possa consultar o nome da branch atual
 
 O comando git para isso é: `git rev-parse --abbrev-ref HEAD`.
@@ -99,7 +23,7 @@ Tendo em vista o que queremos fazer e o comando que precisaremos executar, vamos
 
 Pronto, agora temos uma ideia básica de como isso tudo funcionará.
 
-### Sobre a implementação
+## Sobre a implementação
 
 Iremos implementar o nosso projeto buscando seguir o TDD. 
 Assim, vamos pensar em pequenos passos, que serão as iterações, e dividiremos as etapas desta forma.
@@ -116,7 +40,7 @@ Mocks são simulações de integração real, utilizados principalmente para em 
 de softwares onde eles substituem alguma dependência real. 
 Podendo assim, simular os resultados das suas execuções para um comportamento conhecido e desejado.
 
-### TDD: Primeira iteração - Iniciando nossa função de teste
+## TDD: Primeira iteração - Iniciando nossa função de teste
 
 Na nossa primeira iteração iremos inciar a implementação da nossa função de teste.
 
@@ -134,7 +58,7 @@ mod tests {
 Vamos agora entender o que significa esse pedacinho de código. Primeiro, vamos entender como fazemos
 a assinatura dos testes.
 
-#### `#[cfg(test)]` e `mod tests`
+### `#[cfg(test)]` e `mod tests`
 
 ```rs
 #[cfg(test)]
@@ -244,7 +168,7 @@ mod tests;
 Assim em `src/git/tests.rs` é possível acessar todos os atributos, inclusive os privados, com `use super::*`.
 
 
-#### `#[tests]` e a função de teste
+### `#[tests]` e a função de teste
 
 Agora que entendemos os módulos, vamo ver nosso teste:
 
@@ -265,7 +189,7 @@ execultado quando rodarmos `cargo test`. (se não sabia, esse é o comando para 
 `fn returns_branch_name_on_success() {}` esta linha define o nome da função de teste, quando
 executarmos o comando `cargo test` esse nome irá ser exibido no terminal, indicando se passou ou não.
 
-#### Finalizando a primeira iteração
+### Finalizando a primeira iteração
 
 Nosso objetivo aqui é criar a função de teste e somente isso. Por que somente? No TDD damos passos
 pequenos, mas andamos somente para frente, confiante de que o que construímos funciona e está validado.
@@ -289,11 +213,11 @@ git commit -m "feat: wip - inicializado os testes"
 Agora tudo salvo, vamos continuar para a próxima iteração.
 
 
-### TDD: Segunda iteração - Inicializando o mock
+## TDD: Segunda iteração - Inicializando o mock
 
 Agora que entendemos a estrutura do teste, vamos agora implementar nossa primeira linha do teste.
 
-#### Iniciando Mock
+### Iniciando Mock
 
 ```rs
 #[cfg(test)]
@@ -343,7 +267,7 @@ Parece bizarro pensar nessa metodologia, a princípio, tipo, por que testar algo
 
 ---
 
-#### Criando a inicialização do mock FakeRunner
+### Criando a inicialização do mock FakeRunner
 
 O teste não executará se tentar agora. Isso por que `FakeRunner` nem se quer existe. 
 
@@ -375,7 +299,7 @@ Ou em `java` ser comparado a um `record`.
 
 Assim, o código acima define uma estrutura (`struct`) chamada `FakeRunner`. 
 
-#### Implementando método NEW do mock FakeRunner
+### Implementando método NEW do mock FakeRunner
 
 Agora que temos a estrutura do FakeRunner, precisamos implementar o diaxo do método `new`.
 
@@ -458,7 +382,7 @@ O valor de result será uma `struct RunResult`, que possue em seus campos utiliz
 Como ainda não implementamos `RunResult` fica estranho ver toda essa conversão acontecendo aqui. 
 Mas, lembre-se, se não existe ainda, é porque estamos só definindo como vai ser.
 
-#### Atualizando struct FakeRunner
+### Atualizando struct FakeRunner
 
 Dado que a implementação do método new está retornando uma estrutura que não existe, precisamos implementa-la.
 Assim, o nosso código ficará da seguinte forma.
@@ -501,7 +425,7 @@ A seguir, vamos finalmente implementar nossa estrutura RunResult.
 Como ela também fará parte da nossa implementação final, pois iremos usar essa estrutura como retorno.
 Devemos definir fora do modulo de testes.
 
-#### Implementando a estrutura RunResult
+### Implementando a estrutura RunResult
 
 RunResult como indiretamente vimos nos testes implementados acima, a estrutura será a seguinte:
 
@@ -662,7 +586,7 @@ pub stderr: Vec<u8>,
 - `stdout` e `stderr` são do tipo `Vec<u8>`, que significa aceitarem um vertor de `bytes` do tipo `unsigned 8-bit`
   - Esse formato é util por aceitar dados binários arbitrários (arquivos, saída de processos, rede), não exibindo que seja um UTF-8 válido.
 
-#### Finalizando a iteração
+### Finalizando a iteração
 
 Nesta iteração vimos muitos conceitos e syntax novas, falamos de ownership, borrowing, pub, impl.  
 Se desejar ter mais detalhes sobre, a documentação do rust é bem completa :)
@@ -692,7 +616,7 @@ git commit -m "feat: wip - inicializando mock e adicionando estrutura da respost
 
 ````
 
-### TDD: Segunda iteração - GitRunner
+## TDD: Segunda iteração - GitRunner
 
 Agora que temos uma estrutura de resposta, precisamos pensar numa estrutura para executar o código.
 
@@ -714,7 +638,7 @@ Em Rust também temos algo *similar* (similar, mas não igual) chamado de `trait
 métodos na qual precisam ser implementados por aqueles que dizem que implementa. Logo, teremos as
 mesmas funções, com os mermos argumentos e tipos de retornos, para todas as estruturas que o implementam.
 
-#### O Teste
+### O Teste
 
 Sabendo da existência do `trait`, podemos usar este conceito para garantir que nosso mock tenha a
 mesma chamada de método que a nossa implementação real. Tendo isso em mente, vamos então dizer em
@@ -737,7 +661,7 @@ mod tests {
 
 Logo, com essa impelementação, nós definimos que nosso modk
 
-#### Vamos entender as mudanças:
+### Vamos entender as mudanças:
 
 - `impl GitRunner for FakeRunner {`: **impl**ementação de **GitRunner** **para** a estrutura **FakeRunner**. Essa linha indica que estamos implementando uma definição (trait) para estrutura `FakeRunner`. Em orientação a objeto seria como um `extends` ou `implements` e `GitRunner` seria considerada como uma `interface`. A forma como `impl` funciona é interessante, é como se fossemos adicionando novas funcionalidades a estrutura FakeRunner cada vez que utilizamos. A primeira vez, adicionamos new, da segunda vez, utilizamos uma definição (trait) para dizer que função deveriamos implementar.
 
@@ -753,7 +677,7 @@ fn run(&mut self, _args: &[&str]) -> std::io::Result<RunResult> {
 
 Agora vamos implementar `GitRunner` trait que é utilizado como definição para `FakeRunner`
 
-#### Implementando pub trait GitRunner
+### Implementando pub trait GitRunner
 
 ```rs
 pub trait GitRunner {
@@ -779,7 +703,7 @@ Vamos entender o código acima:
 
 Assim como em Orientação a Objeto, na qual temos uma `interface` que é uma abstração de uma implementação real, e então implementamos uma `classe` que implementa esta `interface` de modo a termos uma classe concreta, em rust faremos algo semelhante.
 
-#### Finalizando a iteração
+### Finalizando a iteração
 
 Vamos então executar nosso teste: 
 
@@ -794,7 +718,7 @@ git add .;
 git commit -m "feat: wip implementando trait GitRunner"
 ```
 
-#### Código resultante deta iteração
+### Código resultante deta iteração
 
 ```rs
 #[derive(Clone, Debug)]
@@ -835,7 +759,7 @@ mod tests {
     }
 ```
 
-### TDD: Terceira iteração - Git, the real implementation
+## TDD: Terceira iteração - Git, the real implementation
 
 Nesta iteração faremos o teste que desejamos.
 
@@ -861,7 +785,7 @@ mod tests {
 }
 ```
 
-#### Explicando o código:
+### Explicando o código:
 
 - `#[test]`: 
   - Esse atributo indica que a função seguinte é um teste  
@@ -885,7 +809,7 @@ let branch = git
 
 Agora que entendemos o teste implementado, vamos escrever nosso código para passar
 
-#### Implementando RealGitRunner e impl Git
+### Implementando RealGitRunner e impl Git
 
 Neste código acima temos a chamada do método, que ainda iremos implementar.
 
@@ -1091,7 +1015,7 @@ Nesse trecho de código, temos aqui uma validação do resultado do comando. Cas
 > Em um resumo nada convencional de explicar, ownership e borrowing são os meios do rust de fazer com que a pessoa desenvolvedora seja responsável pelo garbage collector :D
 
 
-#### Finalizando a iteração
+### Finalizando a iteração
 
 Agora com a implementação concluída, vamos verificar se os testes estão passando:
 
@@ -1108,7 +1032,7 @@ git commit -m "feat: wip - criada implementação concreta do executável para o
 
 Na próxima iteração iremos concluir a primeira feature adicionando validações para os erros.
 
-#### Código resultante deta iteração
+### Código resultante deta iteração
 
 ```rs
 #[derive(Clone, Debug)]
@@ -1209,7 +1133,7 @@ mod tests {
 }
 ```
 
-### TDD: Quarta iteração - GitError, melhorando as mensagens de erros
+## TDD: Quarta iteração - GitError, melhorando as mensagens de erros
 
 Até a terceira iteração, já tinhamos o código funcionando e testado.  
 Mas, as mensagens de erros devem ser melhor trabalhadas.  
@@ -1321,7 +1245,7 @@ mod test {
 
 ---
 
-#### Código resultante deta iteração
+### Código resultante deta iteração
 
 ```rs
 /// Error type for git helpers.
@@ -1467,7 +1391,7 @@ mod tests {
 }
 ```
 
-### Resultado final
+## Resultado final
 
 ```rs
 / ...existing code...

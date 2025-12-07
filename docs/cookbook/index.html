@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="pt-BR">
     <head>
         <meta charset="utf-8" />
         <title>Manguetown - Aprendendo Rust</title>
@@ -9,11 +9,6 @@
         />
 
         <link href="https://oxechicao.github.io/da-lama-ao-caos/output.css" rel="stylesheet"/>
-        <style css="text/css">
-            * {
-                font-family: "Open-Dyslexic", sans-serif;
-            }
-        </style>
     </head>
 
     <body class="bg-blue-950 text-stone-200">
@@ -22,43 +17,9 @@
 <h1 class="title">
   COOKBOOK: Aprendendo com testes
 </h1>
-<p>Objetivo deste documento é aprender RUST através de testes: unitários, integração etc.</p>
-<p>Por mais que testes automatizados seja um tópico relativamente avançado, adquirir uma cultura de testes é essencial para qualquer pessoa desenvolvedora.<br />
-Então, porque não começar com os testes? <del>Porque é coisa de doido</del></p>
-<p>Uma vez ouvi um colega dizer para mim:</p>
-<blockquote>
-<p>"Eu dificilmente subo minha aplicação. Geralmente é a ultima etapa, só para ter certeza. Eu sempre utilizo os testes unitários para executar meu código"</p>
-</blockquote>
-<p>Isso mudou mais uma vez meu estilo de programação. Apesar de muitos considerar que testes atrasam uma entrega. Eu digo que testes postergam problemas. O prazo de entrega pode aumentar algund dias, enquanto um prazo de debug tendem a demorar semanas.</p>
-<p>Utilizar TDD (Test Driven Development, Desenvolvimento Orientado a Teste) exige prática, e no começo vai parecer ser bem sem sentido, mas continue firme na prática, isso mudará seu jeito de pensar em como entregar o mínimo.<br />
-Resumidamente, no TDD primeiro você escreve o teste, para aquilo que não existe, isso deve falhar, do contrário, ou o teste está errado, ou a implementação já existe e você não sabia :D.<br />
-A implementação segue um ciclo: Escreve o teste, Faz o teste passar, Refatore o código.</p>
-<pre class="mermaid">
----
-title: Ciclo TDD
----
-
-stateDiagram-v2
-  state "Escreva o Teste" as a
-  state "Escreva o código que passe no teste" as b
-  state "Refatore o código" as c
-  [*] --> a: Início da iteração
-  a --> b: falhou
-  b --> c: passou
-  c --> a: próxima iteração
-</pre>
-<p>Os exemplos abaixo foram surgindo de acordo com a minha necessidade e meu aprendizado. Não estão necessariamente em alguma ordem.</p>
-<blockquote>
-<p><strong>NOTA:</strong>
-Nem tudo deve ser testado, nem todos os testes abaixo devem ser realmente implementados.
-O objetivo deste documento é o aprendizado,</p>
-</blockquote>
-
 <ul>
   <!-- If you are using pagination, section.pages will be empty.
        You need to use the paginator object -->  
-  
-  <li><a href="https://oxechicao.github.io/da-lama-ao-caos/cookbook/criando-comando-para-ler-nome-da-branch-atual/">Cookbook: Exemplos de códigos em rust</a></li>
   
 </ul>
 </div>

@@ -1,8 +1,8 @@
 +++
 title = "COOKBOOK: Aprendendo com testes"
 sort_by = "date"
-template = "cookbook.html"
-page_template = "cookbook-page.html"
+template = "blog.html"
+page_template = "blog-page.html"
 +++
 
 Objetivo deste documento é aprender RUST através de testes: unitários, integração etc.
