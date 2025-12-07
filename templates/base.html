@@ -3,18 +3,34 @@
     <head>
         <meta charset="utf-8" />
         <title>Manguetown - Aprendendo Rust</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            lang="pt-BR"
+            content="Manguetown é um blog pessoal sobre aprendizado em Rust"
+        />
+        <meta name="author" content="Chicâo Thiago" />
+        <link rel="shortcut icon" href="{{ get_url(path="fav5.png") }}"
+        type="image/x-icon" />
         <link
             href="https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734"
             rel="stylesheet"
         />
 
         <link href="{{ get_url(path="output.css") }}" rel="stylesheet"/>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=open_in_new"
+        />
     </head>
 
-    <body class="bg-blue-950 text-stone-200">
-        <section class="section">
-            <div>{% block content %} {% endblock content %}</div>
+    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
+        <header class="pt-6">{% include "components/header.html" %}</header>
+        <section class="p-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto my-6">
+            {% block content %} {% endblock content %}
         </section>
+        <aside>{% block aside %}{% endblock aside %}</aside>
+        <footer>{% block footer %}{% endblock footer %}</footer>
 
         <script type="module">
             import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";

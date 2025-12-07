@@ -5,13 +5,8 @@
   font-family: "Open-Dyslexic", sans-serif;
 }
 
-html,
-body {
-  @apply h-full text-stone-300;
-}
-
 h1 {
-  @apply text-4xl font-extrabold text-center text-pink-600 my-8;
+  @apply text-4xl font-extrabold text-center text-sky-600 my-8;
 }
 
 .subtitle {

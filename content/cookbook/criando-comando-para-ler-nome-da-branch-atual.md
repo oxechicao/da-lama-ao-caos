@@ -3,7 +3,6 @@ title = "Criando um comando para ler o nome da branch"
 date = 2025-12-07
 path = "cookbook/criando-comando-para-ler-nome-da-branch-atual"
 tags = ["git", "command", "mock"]
-draft = true
 +++
 
 ## Contexto
